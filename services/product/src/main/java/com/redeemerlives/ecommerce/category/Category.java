@@ -1,5 +1,6 @@
-package com.redeemerlives.ecommerce.product;
+package com.redeemerlives.ecommerce.category;
 
+import com.redeemerlives.ecommerce.product.Product;
 import jakarta.persistence.*;
 import lombok.*;
 
