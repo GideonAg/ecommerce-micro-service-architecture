@@ -2,14 +2,12 @@ package com.redeemerlives.ecommerce.service;
 
 import com.redeemerlives.ecommerce.clients.CustomerClient;
 import com.redeemerlives.ecommerce.clients.ProductClient;
-import com.redeemerlives.ecommerce.dto.CustomerResponse;
-import com.redeemerlives.ecommerce.dto.OrderLineRequest;
-import com.redeemerlives.ecommerce.dto.OrderRequest;
-import com.redeemerlives.ecommerce.dto.PurchaseResponse;
+import com.redeemerlives.ecommerce.dto.*;
 import com.redeemerlives.ecommerce.exception.BusinessException;
 import com.redeemerlives.ecommerce.kafka.OrderConfirmation;
 import com.redeemerlives.ecommerce.kafka.OrderProducer;
 import com.redeemerlives.ecommerce.repository.OrderRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -60,5 +58,20 @@ public class OrderServiceImpl implements OrderService{
                 )
         );
         return "Order placed successfully";
+    }
+
+    @Override
+    public List<OrderResponse> findAll() {
+        return orderRepository.findAll()
+                .stream()
+                .map(orderMapper::toOrderResponse)
+                .toList();
+    }
+
+    @Override
+    public OrderResponse findById(Integer orderId) {
+        return orderRepository.findById(orderId)
+                .map(orderMapper::toOrderResponse)
+                .orElseThrow(() -> new EntityNotFoundException("No order found with ID:: " + orderId));
     }
 }
