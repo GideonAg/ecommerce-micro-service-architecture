@@ -1,6 +1,7 @@
 package com.redeemerlives.ecommerce.service;
 
 import com.redeemerlives.ecommerce.clients.CustomerClient;
+import com.redeemerlives.ecommerce.clients.PaymentClient;
 import com.redeemerlives.ecommerce.clients.ProductClient;
 import com.redeemerlives.ecommerce.dto.*;
 import com.redeemerlives.ecommerce.exception.BusinessException;
@@ -19,6 +20,7 @@ public class OrderServiceImpl implements OrderService{
 
     private final CustomerClient customerClient;
     private final ProductClient productClient;
+    private final PaymentClient paymentClient;
     private final OrderRepository orderRepository;
     private final OrderLineService orderLineService;
     private final OrderMapper orderMapper;
@@ -46,7 +48,14 @@ public class OrderServiceImpl implements OrderService{
             );
         }
 
-        // todo start payment process
+        var paymentRequest = new PaymentRequest(
+                orderRequest.amount(),
+                orderRequest.reference(),
+                orderRequest.paymentMethod(),
+                order.getId(),
+                customer
+        );
+        paymentClient.requestOrderPayment(paymentRequest);
 
         orderProducer.sendOrderConfirmation(
                 new OrderConfirmation(
