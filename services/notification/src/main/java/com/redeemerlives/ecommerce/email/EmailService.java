@@ -91,7 +91,7 @@ public class EmailService {
 
         Context context = new Context();
         context.setVariables(variables);
-        final String templateName = ORDER_CONFIRMATION.getTemplate();;
+        final String templateName = ORDER_CONFIRMATION.getTemplate();
 
         try {
             String htmlTemplate = templateEngine.process(templateName, context);

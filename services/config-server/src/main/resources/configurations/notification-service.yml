@@ -1,0 +1,36 @@
+spring:
+  data:
+    mongodb:
+      username: admin
+      password: password
+      host: localhost
+      port: 27017
+      database: notification
+      authentication-database: admin
+  mail:
+    host: localhost
+    port: 1025
+    username: admin
+    password: password
+    properties:
+      mail:
+        smtp:
+          trust: '*'
+        auth: true
+        starttls:
+          enabled: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: paymentGroup,orderGroup
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringSerializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.trusted.packages: '*'        # DO NOT USE '*' IN PRODUCTION
+        spring.json.type.mapping: orderConfirmation:com.redeemerlives.ecommerce.kafka.OrderConfirmation,paymentConfirmation:com.redeemerlives.ecommerce.dto.PaymentConfirmation
+server:
+  port: 8173
