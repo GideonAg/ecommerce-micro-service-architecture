@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .order-details {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #888;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+    <title>Payment Confirmation</title>
+</head>
+<body>
+<div class="email-container">
+    <h1>Payment Confirmation</h1>
+    <p>Dear <strong th:text="${customerName}">Customer</strong>,</p>
+    <p>Thank you for your payment of <strong th:text="${amount}">$0.00</strong>. Your order reference is <strong th:text="${orderReference}">ABC123456</strong>.</p>
+
+    <div class="order-details">
+        <p><strong>Order Details:</strong></p>
+        <p>Order Reference: <span th:text="${orderReference}">ABC123456</span></p>
+        <p>Amount Paid: <span th:text="${amount}">$0.00</span></p>
+    </div>
+
+    <p>If you have any questions, feel free to <a href="mailto:redeemerprogramming@gmail.com">contact our support team</a>.</p>
+
+    <div class="footer">
+        <p>Best regards,</p>
+        <p>The Redeemer Lives Team</p>
+    </div>
+</div>
+</body>
+</html>
