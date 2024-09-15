@@ -12,6 +12,6 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        spring.json.type.mapping: paymentConfirmation:com.redeemerlives.ecommerce.dto:PaymentConfirmation
+        spring.json.type.mapping: paymentConfirmation:com.redeemerlives.ecommerce.dto.PaymentConfirmation
 server:
   port: 8163
