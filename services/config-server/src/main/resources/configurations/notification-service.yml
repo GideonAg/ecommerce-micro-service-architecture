@@ -27,10 +27,10 @@ spring:
       bootstrap-servers: localhost:9092
       group-id: paymentGroup,orderGroup
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringSerializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonSerializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: '*'        # DO NOT USE '*' IN PRODUCTION
-        spring.json.type.mapping: orderConfirmation:com.redeemerlives.ecommerce.kafka.OrderConfirmation,paymentConfirmation:com.redeemerlives.ecommerce.dto.PaymentConfirmation
+        spring.json.type.mapping: orderConfirmation:com.redeemerlives.ecommerce.kafka.order.OrderConfirmation,paymentConfirmation:com.redeemerlives.ecommerce.kafka.payment.PaymentConfirmation
 server:
   port: 8173
