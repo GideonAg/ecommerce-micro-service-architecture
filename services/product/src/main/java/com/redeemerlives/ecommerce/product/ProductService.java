@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -24,12 +25,13 @@ public class ProductService {
         var productIds = request.stream()
                 .map(ProductPurchaseRequest::productId)
                 .toList();
-        var storedProducts = productRepository.findAllByIdIn(productIds);
+        var storedProducts = productRepository.findAllByIdInOrderById(productIds);
 
         if (productIds.size() != storedProducts.size())
             throw new ProductPurchaseException("One or more product does not exist");
 
         var purchasedProducts = new ArrayList<ProductPurchaseResponse>();
+        request.sort(Comparator.comparingInt(ProductPurchaseRequest::productId));
         for (int i = 0; i < storedProducts.size(); i++) {
             var product = storedProducts.get(i);
             var productRequest = request.get(i);
